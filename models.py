@@ -93,7 +93,7 @@ class DenseBlock(nn.Module):
 
 class DenseNet(nn.Module):
     def __init__(self, device, tensor_view, number_layers=6, growth_rate=12, reduction=2, bottleneck=True, drop_rate=0.0):
-        super().__init__()
+        super(DenseNet, self).__init__()
 
         assert len(tensor_view) == 3
 
