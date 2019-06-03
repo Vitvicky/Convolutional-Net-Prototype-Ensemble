@@ -5,11 +5,11 @@ from pandas import read_csv
 from random import sample
 
 DATASETS = {'fm', 'c10', 'svhn', 'cinic'}
-
+training_amount = 6000
 
 class FashionMnist(Dataset):
     tensor_view = (1, 28, 28)
-    train_test_split = 6000
+    train_test_split = training_amount
     path = 'dataset/fashion-mnist_stream.csv'
     dataset = None
 
@@ -39,7 +39,7 @@ class FashionMnist(Dataset):
 
 class Cifar10(Dataset):
     tensor_view = (3, 32, 32)
-    train_test_split = 6000
+    train_test_split = training_amount
     path = 'dataset/cifar10_stream.csv'
     dataset = None
 
@@ -69,7 +69,7 @@ class Cifar10(Dataset):
 
 class SVHN(Dataset):
     tensor_view = (3, 32, 32)
-    train_test_split = 6000
+    train_test_split = training_amount
     path = 'dataset/SVHN_stream.csv'
     dataset = None
 
@@ -99,7 +99,7 @@ class SVHN(Dataset):
 
 class Cinic(Dataset):
     tensor_view = (3, 32, 32)
-    train_test_split = 6000
+    train_test_split = training_amount
     path = 'dataset/cinic_stream.csv'
     dataset = None
 
@@ -141,3 +141,5 @@ class NoveltyDataset(Dataset):
 
     def __len__(self):
         return len(self.data)
+    
+    # def add()
