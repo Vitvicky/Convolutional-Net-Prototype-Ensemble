@@ -165,7 +165,7 @@ def generate(args, files):
         print(data.shape)
         print(data)
         # save d
-        np.savetxt(file_name[:file_name.index('.')]+"_"+str(args.density)+"_haque.csv", data, delimiter=',')
+        np.savetxt(file_name[:file_name.index('.')]+"_"+str(args.density)+"_simulated.csv", data, delimiter=',')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -179,10 +179,9 @@ if __name__ == '__main__':
     parser.add_argument("--add-num", type=int, default=300, help="number of instances to add at a time")
     args = parser.parse_args()
     
-    args.file_dir = '/home/wzy/Coding/Data/cifar-10'
+    # args.file_dir = '/home/wzy/Coding/Data/cifar-10'
     args.add_argument = 200
-    files = ["cifar10_all.csv"]
-    # files=["CIFAR-10.csv"]
+    # files = ["cifar-10-ori.csv"]
     generate(args, files)
 
 
