@@ -3,6 +3,7 @@ from torch import tensor
 from torch.utils.data import Dataset
 from pandas import read_csv
 from random import sample
+from tool import Sampler
 
 DATASETS = {'fm', 'c10', 'svhn', 'cinic'}
 training_amount = 6000
@@ -141,5 +142,29 @@ class NoveltyDataset(Dataset):
 
     def __len__(self):
         return len(self.data)
-    
+
     # def add()
+
+    # TODO Additional Functions by YW.
+    def extend_by_select(self, buffer, percent, prototypes, net):
+        '''
+        Extend the dataset by selecting number of data from both original dataset and buffer accoding to a metric.
+
+        :param buffer: List of data in buffer.
+        :type buffer: list
+        :param percent: Percent of remain data.
+        :type percent: float
+        :return: None
+        '''
+        assert 0 < percent <= 1
+        num = int(len(self.data) * percent)
+        self.data = self.data_select(self.data, num, prototypes, net, False)
+        num = int(len(buffer) * percent)
+        self.data.extend(self.data_select(buffer, num, prototypes, net, True))
+
+    # todo select data from original dataset.
+    def data_select(self, data, num, prototypes, net, is_novel):
+        sampler = Sampler(data, num, prototypes, net, is_novel)
+        sampler.sampling()
+        return sampler.return_data()
+

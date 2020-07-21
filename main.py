@@ -4,6 +4,7 @@ import time
 import torch
 import models
 import dataset
+import tool
 from config import Config
 from torch import optim
 from torch.utils.data import DataLoader
@@ -158,7 +159,11 @@ def stream(config, trainset, streamset):
 
             if len(buffer) == 1000:
                 logger.info("novelty dataset size before extending: %d", len(novelty_dataset))
-                novelty_dataset.extend(buffer, config.novelty_buffer_sample_rate)
+
+                # todo try different sample methods by YW.
+                # novelty_dataset.extend(buffer, config.novelty_buffer_sample_rate)
+                novelty_dataset.extend_by_select(buffer, config.novelty_buffer_sample_rate, prototypes, net)
+
                 logger.info("novelty dataset size after extending: %d", len(novelty_dataset))
                 logger.info('---------------- incremental train ----------------')
                 novelty_detector = train(novelty_dataset)
