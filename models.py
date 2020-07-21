@@ -417,7 +417,7 @@ class Detector(object):
         acc = accuracy_score(results['true_label'], results['predicted_label'])
         acc_all = accuracy_score(self.results['true_label'], self.results['predicted_label'])
 
-        return true_positive, false_positive, false_negative, true_negative, cm, acc, acc_all
+        return true_positive, false_positive, false_negative, true_negative, cm, 1 - acc, 1 - acc_all
 
     def load(self, pkl_path):
         self.__dict__.update(torch.load(pkl_path))
