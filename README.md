@@ -3,8 +3,13 @@ implementation of ICDE 2019 paper: Robust High Dimensional Stream Classification
 
 ## Requirments
 All training and test are done in [Pytorch](https://pytorch.org/) framework.
+
 Pytorch vesion: 0.4.0
+
 Python version: 3.7
+
+## Illustration
+![figure](./images/ICDE_Model.pdf)
 
 you could run the XX.sh scripts to execute the CPE model on corresponding data sets. 
 
