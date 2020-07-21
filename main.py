@@ -117,8 +117,6 @@ def stream(config, trainset, streamset):
         precision = tp / (tp + fp + 1)
         recall = tp / (tp + fn + 1)
 
-        logger.info("accuracy of known labels: %.4f", acc)
-        logger.info("accuracy of all labels: %.4f", acc_all)
         logger.info("true positive: %d", tp)
         logger.info("false positive: %d", fp)
         logger.info("false negative: %d", fn)
