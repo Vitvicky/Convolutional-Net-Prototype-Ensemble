@@ -113,7 +113,7 @@ def stream(config, trainset, streamset):
                 logger.debug("[test %5d]: %d, %d, %7.4f, %7.4f, %5s, %5s",
                              i + 1, label, predicted_label, prob, distance, real_novelty, detected_novelty)
 
-        tp, fp, fn, tn, cm, acc, acc_all = novelty_detector.evaluate(detection_results)
+        tp, fp, fn, tn, cm = novelty_detector.evaluate(detection_results)
         precision = tp / (tp + fp + 1)
         recall = tp / (tp + fn + 1)
 
