@@ -9,7 +9,7 @@ Pytorch vesion: 0.4.0
 Python version: 3.7
 
 ## Illustration
-![image](https://github.com/Vitvicky/Convolutional-Net-Prototype-Ensemble/blob/master/images/ICDE_Model.pdf)
+![image](https://github.com/Vitvicky/Convolutional-Net-Prototype-Ensemble/blob/master/images/ICDE_Model.jpg)
 
 you could run the XX.sh scripts to execute the CPE model on corresponding data sets. 
 
