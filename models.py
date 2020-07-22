@@ -414,10 +414,10 @@ class Detector(object):
 
         cm = confusion_matrix(self.results['true_label'], self.results['predicted_label'], sorted(list(np.unique(self.results['true_label']))))
         results = self.results[np.isin(self.results['true_label'], list(self._known_labels))]
-        acc = accuracy_score(results['true_label'], results['predicted_label'])
-        acc_all = accuracy_score(self.results['true_label'], self.results['predicted_label'])
+        # acc = accuracy_score(results['true_label'], results['predicted_label'])
+        # acc_all = accuracy_score(self.results['true_label'], self.results['predicted_label'])
 
-        return true_positive, false_positive, false_negative, true_negative, cm, acc, acc_all
+        return true_positive, false_positive, false_negative, true_negative, cm
 
     def load(self, pkl_path):
         self.__dict__.update(torch.load(pkl_path))
