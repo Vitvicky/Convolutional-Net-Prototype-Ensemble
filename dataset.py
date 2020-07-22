@@ -165,6 +165,7 @@ class NoveltyDataset(Dataset):
     # todo select data from original dataset.
     def data_select(self, data, num, prototypes, net, is_novel):
         sampler = Sampler(data, num, prototypes, net, is_novel)
-        sampler.sampling()
+        # sampler.sampling()
+        sampler.soft_sampling()
         return sampler.return_data()
 
