@@ -157,7 +157,7 @@ class NoveltyDataset(Dataset):
         :return: None
         '''
         assert 0 < percent <= 1
-        num = int(len(self.data) * (1.0 - percent))
+        num = int(len(self.data) * 0.8)
         self.data = self.data_select(self.data, num, prototypes, net, False)
         num = int(len(buffer) * percent)
         self.data.extend(self.data_select(buffer, num, prototypes, net, True))
