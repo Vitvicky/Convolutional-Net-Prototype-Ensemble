@@ -146,7 +146,7 @@ class NoveltyDataset(Dataset):
     # def add()
 
     # TODO Additional Functions by YW.
-    def extend_by_select(self, buffer, percent, prototypes, net):
+    def extend_by_select(self, buffer, percent, prototypes, net, soft, use_log):
         '''
         Extend the dataset by selecting number of data from both original dataset and buffer accoding to a metric.
 
@@ -157,15 +157,19 @@ class NoveltyDataset(Dataset):
         :return: None
         '''
         assert 0 < percent <= 1
-        num = int(len(self.data) * percent)
-        self.data = self.data_select(self.data, num, prototypes, net, False)
-        num = int(len(buffer) * percent)
-        self.data.extend(self.data_select(buffer, num, prototypes, net, True))
+        num1 = int(len(buffer) * percent)
+        temp_data = self.data_select(buffer, num1, prototypes, net, True, soft, use_log)
+        num2 = 2000 - num1
+        if num2 < len(self.data):
+            self.data = self.data_select(self.data, num2, prototypes, net, False, soft, use_log)
+        self.data.extend(temp_data)
 
     # todo select data from original dataset.
-    def data_select(self, data, num, prototypes, net, is_novel):
-        sampler = Sampler(data, num, prototypes, net, is_novel)
-        # sampler.sampling()
-        sampler.soft_sampling()
+    def data_select(self, data, num, prototypes, net, is_novel, soft, use_log):
+        sampler = Sampler(data, num, prototypes, net, is_novel, soft, use_log)
+        if soft:
+            sampler.soft_sampling()
+        else:
+            sampler.sampling()
         return sampler.return_data()
 

@@ -5,13 +5,15 @@ import numpy as np
 
 # todo new sample method by YW
 class Sampler(object):
-    def __init__(self, data: list, num: int, prototypes: models.Prototypes, net: models.DenseNet, is_novel: bool):
+    def __init__(self, data: list, num: int, prototypes: models.Prototypes, net: models.DenseNet, is_novel: bool, soft: bool, use_log: bool):
         self.prototypes = prototypes
         self.data = data
         self.num = num
         self.net = net
         self.selected = []
         self.is_novel = is_novel
+        self.soft = soft
+        self.use_log = use_log
 
     def return_data(self):
         return self.selected
@@ -38,9 +40,9 @@ class Sampler(object):
         prototype, distance = self.prototypes.closest(feature, label)
         distance = max(0.001, distance)
         score = prototype.weight / distance
-        # score = max((prototype.weight / distance) * 1000, 0)
-        # score = math.log2(score)
-
+        if self.use_log:
+            score = max(score * 1000, 1.0001)
+            score = math.log2(score)
         return score
 
     def noval_metric(self, d):
@@ -48,8 +50,9 @@ class Sampler(object):
         feature = feature.to(self.net.device).unsqueeze(0)
         feature, _ = self.net(feature)
         prototype, score = self.prototypes.closest(feature)
-        # score = max(score * 1000, 0)
-        # score = math.log2(score)
+        if self.use_log:
+            score = max(score * 1000, 1.0001)
+            score = math.log2(score)
         return score
 
     def soft_sampling(self):

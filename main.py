@@ -30,6 +30,11 @@ def stream(config, trainset, streamset):
     criterion = models.CPELoss(gamma=config.gamma, tao=config.tao, b=config.b, beta=config.beta, lambda_=config.lambda_)
     optimizer = optim.SGD(net.parameters(), lr=config.learning_rate, momentum=0.9)
 
+    #todo
+    soft = True
+    use_log = True
+    logger.info("Soft: {}, Use_log: {}".format(soft, use_log))
+
     prototypes = models.Prototypes(threshold=config.threshold)
     # load saved prototypes
     try:
@@ -160,7 +165,8 @@ def stream(config, trainset, streamset):
 
                 # todo try different sample methods by YW.
                 # novelty_dataset.extend(buffer, config.novelty_buffer_sample_rate)
-                novelty_dataset.extend_by_select(buffer, config.novelty_buffer_sample_rate, prototypes, net)
+
+                novelty_dataset.extend_by_select(buffer, config.novelty_buffer_sample_rate, prototypes, net, soft, use_log)
 
                 logger.info("novelty dataset size after extending: %d", len(novelty_dataset))
                 logger.info('---------------- incremental train ----------------')
